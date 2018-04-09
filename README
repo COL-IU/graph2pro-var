@@ -1,0 +1,100 @@
+Package name: graph2pro-var
+This package contains a wrapper script (graph2pro-var.sh) and component packages for two algorithms: 
+graph2pro and var2pep for protein/peptide identification from metaproteomic mass spectral data with matching 
+metagenomic/transcriptomic data (i.e., meta-proteogenomic approach).
+The graph2pro approach is based on assembly graph for protein/peptide identification.
+The var2pep aims to use the sequencing reads that cannot be assembled to further improve peptide identification.
+
+Released: April 2, 2018
+Developers: Sujun Li (sujli@indiana.edu), Yuzhen Ye (yye@indiana.edu) and Haixu Tang (hatang@indiana.edu)
+
+This work was supported by NIH grant 1R01AI108888 to YY and HT
+
+graph2pro-var is free software under the terms of the GNU General Public License as published by
+the Free Software Foundation.
+
+>> Package contents
+graph2pro-var.sh -- wrapper script for the package that can be called directly
+Graph2Pro -- programs for assembly graph based protein/peptide identification
+MSGF+ -- MS search engine
+FragGeneScan, bowtie2, RAPSearch2, pyscript -- folders contain programs/scripts for other purposes 
+Tests folder, which contains a small dataset for testing the pipeline. 
+   SML.par -- the parameter file
+   other files, including the fastg and spectral files
+
+>> Installation
+   If you run the pipeline on a linux machine, the pipeline probably works just fine. 
+   If not, you may need to recompile the tools included. 
+   We provide a script for recompiling the tools: 
+	 $./install
+
+>> Try a testing example (under Tests folder)
+   Check readme file under the Tests folder for usage; all necessary files are provided in the same folder.
+   Command to test the provided testing example:
+   	$cd Tests
+        $nohup sh ../graph2pro-var.sh SML.par > SML.log &
+   
+   Notes:
+       1) Included in this folder you can see SML.par, the parameter file that will be used by the wrapper script. 
+       2) The first four parameters (id, kmer, fastg, ms) are mandatory; reads, thread, memory, and fdr are optional.
+          By default fdr is set to 0.01, thread is set to 8, and memory is set to 32g 
+         (if you have extremely large spectral files, you may consider increasing the memory)
+       3) The kmer parameter specifies the kmer size; it must be the same as the kmer size 
+          used for the assembly graph generation (see "How to prepare assembly graph?" below)
+       4) Note the toy dataset is extremely small so only very few peptides will be identified.
+   Required and optional input files (specified in the parameter file):  
+       1) fastg file, the assembly graph of metagenome (and/or metatranscriptome) (required)
+       2) spectral file (required) 
+       3) reads files (optional)
+       graph2pro uses the first two inputs, and var2pep needs the additional reads files. 
+       If no reads files are provided, the pipeline stops after graph2pro is completed. 
+   Outputs: 
+       1) If this test example runs successfully, the pipeline reports identified peptides and other result files,
+          all having the specified id (in this case SML, as specified in the parameter file) as the prefix in their names.
+       2) *.final-peptide.txt
+          this file lists the identified peptides, # of supporting spectra, and by which program (graph2pro or var2pep).
+       3) Other intermediate files you may find useful: 
+          *.step1.fasta (proteins or protein fragments with identified peptides) 
+          *.mzid files -- MSGF+ search results
+          *.0.01.tsv -- details of peptide identification, with FDR control (set to 1% in this case) by different approaches;
+              *.fgs.tsv.0.01.tsv -- results from using contigs only
+              *.graph2pro.tsv.0.01.tsv -- results from graph2pro
+              *.mismatched.tsv.0.01.tsv & *.uncordant.tsv.0.01.tsv -- results from var2pep
+
+>> Try graph2pro & var2pep for your own datasets
+   As graph2pro-var.sh pipeline creates large intermediate result files in **current** folder,
+   we recommend that you create a dedicated working folder for each of your job, and work under that folder. 
+
+   ** Prepare the parameter file for running the pipeline for your job.
+      See SML.par under the Tests folder for an example.
+      Copy and paste this file to your working folder, and revise the parameter file accordingly.
+      Please note the graph2pro-var.sh pipeline gets the input file names (fastg, MS data, reads files) from
+      the parameter file. Make sure that you provide the paths for the input files in the parameter file, if
+      the input files are not in the current folder.
+
+   ** Call graph2pro-var.sh (referring to the script with full path information) as following:
+         $path-to-the-wrapper-script/graph2pro-var.sh parameter-file 
+         OR
+         $nohup sh path-to-the-wrapper-script/graph2pro-var.sh parameter-file > parameter-file.log &
+
+>> How to prepare assembly graph?
+   An important input to the pipeline is the assembly graph (in fastg format). 
+   We recommend that you use MegaHit assembler to prepare assembly graph, i.e., fastg file as following:
+   a) First run megahit with the option like --k-list 21,29,39,59,79,99  (notice the ending k-mer size 99)
+   b) Then use metahit_toolkit to prepare fastg:
+        megahit_toolkit contig2fastg 99 intermediate_contigs/k99.contigs.fa > k99.contigs.fastg
+ 
+>> Use graph2pro only
+   If you want to call only the graph2pro, but no var2pep for your dataset, you can simply do it by removing "reads=" parameter 
+   from the parameter file, and call the same wrapper script graph2pro-var.sh. For this case, only the fastg file (assembly graph) and
+   the spectral data, but not the reads files, will be needed as the inputs.
+
+>> Submit the pipeline to queue using qsub
+   Petide identification from spectral data is very time consuming. If you have many datasets, you may want to use a computer cluster.
+   Note: make sure you specify -v par=par-file-name, and -v pgmdir=program-folder to pass along these information to the queue, if your
+   computer cluster uses qsub.
+
+>> Summarize the results (see example under Tests folder)
+   $path-to-the-wrapper-script/summarize.sh parameter-file(the same used by graph2pro-var.sh)
+   This script reports the number of spectra and unique peptides identified by the different approaches 
+    (contig only, graph2pro, graph2pro&var2pep).

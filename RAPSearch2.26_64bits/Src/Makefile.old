@@ -1,0 +1,46 @@
+# Makefile
+#
+
+#objects := $(patsubst %.cpp, %.o, $(wildcard *.cpp))
+objects := HashSearch.o BlastStat.o Seg.o mergeUnit.o
+
+#define BOOST_ALL_NO_LIB 1   // do not auto link, instead you link manually to your import libraries.
+#define BOOST_ALL_DYN_LINK 1 // tells you will link to shared libraries
+#define BOOST_LOG_DYN_LINK 1 // explicitly says to link boost::log symbols to shared libraries
+CXX := g++ -DBOOST_ALL_NO_LIB -DBOOST_ALL_DYN_LINK -DBOOST_LOG_DYN_LINK
+#CXX := clang++
+
+CXXFLAGs :=
+
+ifeq ($(dbg), 1)
+	CXXFLAGS += -g -Wall
+else
+	CXXFLAGS += -O3 -w
+endif
+
+ifeq ($(pg), 1)
+	CXXFLAGS += -pg
+else
+	CXXFLAGS +=
+endif
+
+#INC := -I ~/include
+INC := -I ./
+
+#LIBS := -L ~/lib
+LIBS := -L ./
+
+all: rapsearch prerapsearch
+
+rapsearch: main.cpp $(objects)
+	$(CXX) $(CXXFLAGS) -o rapsearch main.cpp $(objects) $(INC) $(LIBS) -lboost_serialization -lpthread -lboost_thread -lboost_system -lboost_chrono
+
+prerapsearch: BuildHash.cpp $(objects)
+	$(CXX) $(CXXFLAGS) -o prerapsearch BuildHash.cpp $(objects) $(INC) $(LIBS) -lboost_serialization -lpthread -lboost_thread -lboost_system -lboost_chrono
+
+$(objects) : %.o : %.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@ $(INC)
+
+
+clean:
+	$(RM) *.o rapsearch prerapsearch

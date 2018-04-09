@@ -1,0 +1,47 @@
+#!/bin/bash
+
+echo ""
+echo "Graph2Pro Pipeline Installer"
+
+CDIR=`pwd`
+
+v=`gcc -dumpversion | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
+v0=59999
+if (($v > $v0)); then
+   rap="RAPSearch2.26_64bits"
+else
+   rap="RAPSearch2.24_64bits"
+fi
+
+echo "Now compile Graph2PRo"
+TMPDIR="Graph2Pro"
+cd $TMPDIR
+make clean
+make
+cd $CDIR
+
+echo "Now compile FragGeneScan"
+TMPDIR="FragGeneScan1.30"
+cd $TMPDIR
+make clean
+make
+make fgs
+cd $CDIR
+
+echo "Now compile bowtie"
+TMPDIR="bowtie2-2.3.3.1"
+cd $TMPDIR
+make clean
+make
+cd $CDIR
+
+echo "Now compile RAPSearch"
+cd $rap
+./install
+cd $CDIR
+
+rm -r -f RAPSearch
+ln -s $rap RAPSearch
+
+echo "Installation is completed"
+
