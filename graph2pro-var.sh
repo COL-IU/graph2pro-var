@@ -227,7 +227,7 @@ if [ -s $exp_d.mismatched.mzid ]; then
 else
    rm -r -f $exp_d.mismatched.mzid
    rm -r -f $exp_d.mismatched.rapsearch.revCat*
-   eeho "Now run MSGF+ against variants..."
+   echo "Now run MSGF+ against variants..."
    echo java -Xmx$ram -jar $msgf -s $mgf -o $exp_d.mismatched.mzid -d $exp_d.mismatched.rapsearch.fasta -inst 1 -t 15ppm -ti -1,2 -mod $pgm_d/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread $thread
    java -Xmx$ram -jar $msgf -s $mgf -o $exp_d.mismatched.mzid -d $exp_d.mismatched.rapsearch.fasta -inst 1 -t 15ppm -ti -1,2 -mod $pgm_d/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread $thread
    java -Xmx$ram -cp $msgf edu.ucsd.msjava.ui.MzIDToTsv -i $exp_d.mismatched.mzid -showDecoy 1
