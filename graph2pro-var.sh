@@ -45,7 +45,7 @@ for apar in "${par[@]}"; do
      reads) read_f=${item[1]};;
      thread) thread=${item[1]};;
      memory) ram=${item[1]};;
-     fdr) ram=${item[1]};;
+     fdr) fdr=${item[1]};;
    esac
 done
 
