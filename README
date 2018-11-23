@@ -5,7 +5,7 @@ metagenomic/transcriptomic data (i.e., meta-proteogenomic approach).
 The graph2pro approach is based on assembly graph for protein/peptide identification.
 The var2pep aims to use the sequencing reads that cannot be assembled to further improve peptide identification.
 
-Released: April 2, 2018
+Released: Nov 21, 2018
 Developers: Sujun Li (sujli@indiana.edu), Yuzhen Ye (yye@indiana.edu) and Haixu Tang (hatang@indiana.edu)
 
 This work was supported by NIH grant 1R01AI108888 to YY and HT
@@ -17,7 +17,7 @@ the Free Software Foundation.
 graph2pro-var.sh -- wrapper script for the package that can be called directly
 Graph2Pro -- programs for assembly graph based protein/peptide identification
 MSGF+ -- MS search engine
-FragGeneScan, bowtie2, RAPSearch2, pyscript -- folders contain programs/scripts for other purposes 
+FragGeneScan, bowtie2, RAPSearch2, cd-hit and pyscript -- folders contain programs/scripts for other purposes 
 Tests folder, which contains a small dataset for testing the pipeline. 
    SML.par -- the parameter file
    other files, including the fastg and spectral files
@@ -54,12 +54,13 @@ Tests folder, which contains a small dataset for testing the pipeline.
        2) *.final-peptide.txt
           this file lists the identified peptides, # of supporting spectra, and by which program (graph2pro or var2pep).
        3) Other intermediate files you may find useful: 
-          *.step1.fasta (proteins or protein fragments with identified peptides) 
+          *.graph2pro.fasta -- the Graph2Pro database
+  	  *.var2pro.fasta -- the Var2Pep database
           *.mzid files -- MSGF+ search results
           *.0.01.tsv -- details of peptide identification, with FDR control (set to 1% in this case) by different approaches;
               *.fgs.tsv.0.01.tsv -- results from using contigs only
               *.graph2pro.tsv.0.01.tsv -- results from graph2pro
-              *.mismatched.tsv.0.01.tsv & *.uncordant.tsv.0.01.tsv -- results from var2pep
+              *.var2pep.tsv.0.01.tsv -- results from var2pep
 
 >> Try graph2pro & var2pep for your own datasets
    As graph2pro-var.sh pipeline creates large intermediate result files in **current** folder,
@@ -88,6 +89,11 @@ Tests folder, which contains a small dataset for testing the pipeline.
    If you want to call only the graph2pro, but no var2pep for your dataset, you can simply do it by removing "reads=" parameter 
    from the parameter file, and call the same wrapper script graph2pro-var.sh. For this case, only the fastg file (assembly graph) and
    the spectral data, but not the reads files, will be needed as the inputs.
+
+>> Other option: cascaded search
+   If you want to try cascaded search (only unidentified spectra from the Graph2Pro step goes to the Var2Pep based search),
+   simply add a line to the end of your parameter file:
+   cascaded=yes
 
 >> Submit the pipeline to queue using qsub
    Petide identification from spectral data is very time consuming. If you have many datasets, you may want to use a computer cluster.

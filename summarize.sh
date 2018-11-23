@@ -42,10 +42,9 @@ fi
 contig_info=`python ${pgm_d}/pyscript/getUniquePeptides_files.py -i ${exp_d}.fgs.tsv.$fdr.tsv -b`
 ohter_info="NA NA NA NA NA NA"
 if [ -f ${exp_d}.uncordant.tsv.$fdr.tsv ]; then
-   other_info=`python ${pgm_d}/pyscript/getUniquePeptides_files.py -i ${exp_d}.graph2pro.tsv.$fdr.tsv -v ${exp_d}.mismatched.tsv.$fdr.tsv -v ${exp_d}.uncordant.tsv.$fdr.tsv -b -o ${exp_d}.final-peptide.txt`
+   other_info=`python ${pgm_d}/pyscript/getUniquePeptides_files.py -i ${exp_d}.graph2pro.tsv.$fdr.tsv -v ${exp_d}.var2pep.tsv.$fdr.tsv -b -o ${exp_d}.final-peptide.txt`
 fi
 if $withhead; then
-   #echo "spectra-count contig-peptide-all graph2pro-peptide-all graph2pro&var2pep-peptide-all contig-peptide-unique graph2pro-peptide-unique graph2pro&var2pep-peptide-unique"
    echo "spectra-count contig-peptide-all contig-peptide-unique graph2pro-peptide-all graph2pro-peptide-unique var2peponly-peptide-all var2peponly-peptide-unique graph2pro&var2pep-peptide-all graph2pro&var2pep-peptide-unique"
 fi
 

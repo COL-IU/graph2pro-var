@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from sys import argv
 filename = argv[1]
 FDRLevel = argv[2]
@@ -26,8 +28,9 @@ with open(filename) as file:
 			reverse += 1
 		else:
 			forward += 1
-		spectrumQvalue = reverse/forward
+		spectrumQvalue = reverse * 1.0/forward
 		fw.write(line)
+		#print peptide, evalue
 		if spectrumQvalue > float(FDRLevel) :
 			break
 fw.close()

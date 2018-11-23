@@ -218,6 +218,7 @@ getchar();
 			k = pep_edgemap[id_peptides[i].beg_edge_index].id_pep_index[frame][j];
 			if(id_peptides[i].beg_edge_index == id_peptides[k].beg_edge_index && id_peptides[i].beg_edge_offset == id_peptides[k].beg_edge_offset
 			 && id_peptides[i].end_edge_index == id_peptides[k].end_edge_index && id_peptides[i].end_edge_offset == id_peptides[k].end_edge_offset)	{
+				//id_peptides[i].label = 1; //mark replicated peptides (to avoid redundant graph2pro proteins), Nov 8 2018
 				break;
 			}
 		}

@@ -1,0 +1,4 @@
+call the package: 
+  nohup sh ../graph2pro-var.sh SML.par > SML.log &
+summarize: 
+  ../summarize.sh SML.par
