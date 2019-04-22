@@ -84,7 +84,14 @@ Tests folder, which contains a small dataset for testing the pipeline.
    a) First run megahit with the option like --k-list 21,29,39,59,79,99  (notice the ending k-mer size 99)
    b) Then use metahit_toolkit to prepare fastg:
         megahit_toolkit contig2fastg 99 intermediate_contigs/k99.contigs.fa > k99.contigs.fastg
+   c) If you use MetaSpade, please use the customized parameters and follow the instruction of the software to get the fastg
  
+#new update at March, 2019
+>> Use graph2pep only
+   To be compatible with fastg from Megahit or Metaspades, we have re-coded the program graph2pep. 
+   If users only want to use graph2pep to produce database from fastg file. Please use the following example:
+   	./Graph2Pro/DBGraph2Pro -s assembly_graph.fastg -S -k 49 -o test.graph2pep.fasta
+
 >> Use graph2pro only
    If you want to call only the graph2pro, but no var2pep for your dataset, you can simply do it by removing "reads=" parameter 
    from the parameter file, and call the same wrapper script graph2pro-var.sh. For this case, only the fastg file (assembly graph) and
