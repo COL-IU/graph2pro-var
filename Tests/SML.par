@@ -1,6 +1,7 @@
-id=SML
+id=SML_newFDR
 kmer=99
 fastg=k99.contigs.fastg
 ms=SML.mgf
 reads=-1 SML.1.fq -2 SML.2.fq -U SML.singleton.fq
 thread=8
+fdr=0.008

@@ -95,7 +95,7 @@ if [ -f $exp_d.graph2pep.fasta ]; then
    echo "Graph2pep already done -- skip this step"
 else
    echo "Now run Graph2Pep..."
-   $dbgraph2pro -s $gnm -f -k $kmer -o $exp_d.graph2pep.fasta
+   $dbgraph2pro -s $gnm -S -k $kmer -o $exp_d.graph2pep.fasta
    python $pgm_d/pyscript/createFixedReverseKR.py $exp_d.graph2pep.fasta
 fi
 
@@ -122,6 +122,7 @@ if [ -s $exp_d.fgs.mzid ]; then
 else
     rm -f *.contig.fgs.revCat.*
     echo "Now run MSGF+ against contigs..."
+    echo "java -Xmx$ram -jar $msgf -s $mgf -o $exp_d.fgs.mzid -d $exp_d.contig.fgs.fasta -inst 1 -t 15ppm -ti -1,2 -mod $pgm_d/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread $thread"
     java -Xmx$ram -jar $msgf -s $mgf -o $exp_d.fgs.mzid -d $exp_d.contig.fgs.fasta -inst 1 -t 15ppm -ti -1,2 -mod $pgm_d/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread $thread
     java -Xmx$ram -cp $msgf edu.ucsd.msjava.ui.MzIDToTsv -i $exp_d.fgs.mzid  -showDecoy 1
 fi
@@ -180,6 +181,7 @@ else
    java -Xmx$ram -jar $msgf -s $mgf -o $exp_d.graph2pro.mzid -d $exp_d.graph2pro.fasta -inst 1 -t 15ppm -ti -1,2 -mod $pgm_d/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread $thread
    java -Xmx$ram -cp $msgf edu.ucsd.msjava.ui.MzIDToTsv -i $exp_d.graph2pro.mzid -showDecoy 1
    python $pgm_d/pyscript/parseFDR_o.py $exp_d.graph2pro.tsv $fdr
+   python $pgm_d/pyscript/parseFDR_o_peptide.py $exp_d.graph2pro.tsv $fdr
 fi
 
 #get rejected spectra after graph2pro search, if "cascaded" option is turned on
@@ -270,11 +272,12 @@ else
 fi
 
 python $pgm_d/pyscript/parseFDR_o.py $exp_d.var2pep.tsv $fdr
+python $pgm_d/pyscript/parseFDR_o_peptide.py $exp_d.var2pep.tsv $fdr
 
 #combine graph2pro and var2pep search results
 
-python $pgm_d/pyscript/getUniquePeptides_files.py -o ${exp_d}.final-peptide.txt -i $exp_d.graph2pro.tsv.$fdr.tsv -v $exp_d.var2pep.tsv.$fdr.tsv
-
+python $pgm_d/pyscript/getUniquePeptides_files.py -o ${exp_d}.speFDR.final-peptide.txt -i $exp_d.graph2pro.tsv.$fdr.tsv -v $exp_d.var2pep.tsv.$fdr.tsv
+python $pgm_d/pyscript/getUniquePeptides_files.py -o ${exp_d}.pepFDR.final-peptide.txt -i $exp_d.graph2pro.tsv.peptide.$fdr.tsv -v $exp_d.var2pep.tsv.peptide.$fdr.tsv
 #clean up big intermediate files
 cleanup="yes"
 if [ "${cleanup}" = "yes" ]; then

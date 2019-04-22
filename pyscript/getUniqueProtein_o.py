@@ -9,13 +9,15 @@ def getUniqueHash(filename):
 		for line in f:
 			lines = line.split('\t')
 			peptide = re.sub(r'[^a-zA-Z]', '', lines[9])
-			proteins = lines[10].split('(')[0]
-			if proteins.startswith('XXX'):
-				continue;
-			if peptide in pepHash:
-				pepHash[proteins]=pepHash[peptide]+1
-			else:
-				pepHash[proteins] = 1
+			proteins = lines[10].split(';')
+			for eachPro in proteins:
+				eachPurePro = eachPro.split('(')[0]
+				if eachPurePro.startswith('XXX'):
+					continue;
+				if eachPurePro in pepHash:
+					pepHash[eachPurePro] = pepHash[eachPurePro]+1
+				else:
+					pepHash[eachPurePro] = 1
 
 	return(pepHash)
 def writeTofile(hashinput,wf):

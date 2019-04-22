@@ -1,0 +1,105 @@
+SML.par found -- nice
+k99.contigs.fastg found
+SML.mgf found
+check programs...
+  /nfs/darwin/data/proteomics/graph2pro-var/Graph2Pro/DBGraph2Pro found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/FragGeneScan1.30/run_FragGeneScan.pl found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/RAPSearch/bin/rapsearch found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/MSGFPlus.jar found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/bowtie2-2.3.3.1/bowtie2 found -- nice
+Now run Graph2Pep...
+
+>>>Now read edges from file k99.contigs.fastg
+num edge to be allocated: 242
+
+>>>Now read edge names from file k99.contigs.fastg
+ kmersize 99
+edgeseqfile k99.contigs.fastg
+242 edges input
+num_vertex 242
+num_vertex 316
+input edge extracted: 242
+vertex created: 316
+print_vertex_degree..
+Degree distribution..
+-----------------------
+0 74 0 0 0 
+74 168 0 0 0 
+0 0 0 0 0 
+0 0 0 0 0 
+0 0 0 0 0 
+-----------------------
+hashtablesize 0
+index vertex...
+kmer 99 hashw 0 shift 198
+index 1436004999933780239 -1317601491143291096 hashv 114019856
+
+>>>Now Traverse the graph...
+Check at the beginning of graph traversal
+Peptides of lengths between 8 and 40 will be output
+1119 peptides generated.
+Total time used: 0 sec (0 sec for computing proteins)
+SML_newFDR.graph2pep.fixedKR.fasta
+Now prepare SML_newFDR.contig.fasta file...
+Now run FGS for contigs...
+/nfs/darwin/data/proteomics/graph2pro-var/FragGeneScan1.30/FragGeneScan -s SML_newFDR.contig.fasta -o SML_newFDR.contig.fgs -w 0 -t complete -p 8
+Using 8 threads.
+no. of seqs: 121
+Clock time used (by 8 threads) = 0.01 mins
+prepare gff file..
+Time elapsed: 0 hours 0 minutes and 1 seconds.
+Now run MSGF+ against contigs...
+java -Xmx32g -jar /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/MSGFPlus.jar -s SML.mgf -o SML_newFDR.fgs.mzid -d SML_newFDR.contig.fgs.fasta -inst 1 -t 15ppm -ti -1,2 -mod /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread 8
+MS-GF+ Beta (v10089) (7/16/2014)
+Loading database files...
+Creating /nfs/darwin/data/proteomics/graph2pro-var/Tests/SML_newFDR.contig.fgs.revCat.fasta.
+Creating the suffix array indexed file... Size: 14831
+AlphabetSize: 28
+Suffix creation: 0.00% complete.
+Sorting 0.00% complete.
+Sorting 5.81% complete.
+Sorting 11.62% complete.
+Sorting 17.43% complete.
+Sorting 23.24% complete.
+Sorting 29.05% complete.
+Sorting 34.86% complete.
+Sorting 40.67% complete.
+Sorting 46.48% complete.
+Sorting 52.29% complete.
+Sorting 58.10% complete.
+Sorting 63.91% complete.
+Sorting 69.73% complete.
+Sorting 75.54% complete.
+Sorting 81.35% complete.
+Sorting 87.16% complete.
+Sorting 92.97% complete.
+Sorting 98.78% complete.
+Loading database finished (elapsed time: 0.90 sec)
+Reading spectra...
+Ignoring 0 profile spectra.
+Ignoring 72 spectra having less than 10 peaks.
+Reading spectra finished (elapsed time: 7.66 sec)
+Using 8 threads.
+Search Parameters:
+	PrecursorMassTolerance: 15.0ppm
+	IsotopeError: -1,2
+	TargetDecoyAnalysis: true
+	FragmentationMethod: As written in the spectrum or CID if no info
+	Instrument: HighRes
+	Enzyme: Tryp
+	Protocol: Standard
+	NumTolerableTermini: 1
+	MinPeptideLength: 6
+	MaxPeptideLength: 40
+	NumMatchesPerSpec: 1
+Spectrum 0-23704 (total: 23705)
+pool-1-thread-8: Preprocessing spectra...
+Loading built-in param file: CID_HighRes_Tryp.param
+pool-1-thread-5: Preprocessing spectra...
+Loading built-in param file: CID_HighRes_Tryp.param
+pool-1-thread-4: Preprocessing spectra...
+pool-1-thread-7: Preprocessing spectra...
+pool-1-thread-6: Preprocessing spectra...
+pool-1-thread-2: Preprocessing spectra...
+pool-1-thread-3: Preprocessing spectra...
+pool-1-thread-1: Preprocessing spectra...

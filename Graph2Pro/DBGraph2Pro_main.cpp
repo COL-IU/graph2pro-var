@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 	int max_d = 20;
 	bool SOAP2 = true;
 	bool FastG = false;
+	bool FastGSPaDes = false;
 	bool fastq = false;
 	char tmp_codon2aanum[64] = {8, 11, 11, 8, 16, 16, 16, 16, 7, 7, 7, 10, 14, 15, 15, 14, 13, 6, 6, 13, 12,
 		 12, 12, 12, 9, 9, 9, 9, 14, 14, 14, 14, 20, 19, 19,
@@ -50,7 +51,7 @@ int main(int argc, char **argv)
 	eng -> set_max_depth(max_d);
 
 	//get options
-	while ((copt=getopt(argc,argv,"e:o:s:ul:p:m:k:c:d:f")) != EOF)	{
+	while ((copt=getopt(argc,argv,"e:o:s:ul:p:m:k:c:d:fS")) != EOF)	{
 		switch(copt) {
 			case 'e':
 			  sscanf(optarg,"%s", edgefile);
@@ -94,6 +95,9 @@ int main(int argc, char **argv)
 			case 'f':
 			  FastG = true;
 			  continue;
+			case 'S':
+			  FastGSPaDes = true;
+			  continue;
 			default:
 			  printusage("unknown input");
 			}
@@ -101,7 +105,7 @@ int main(int argc, char **argv)
 		optind--;
 	}
 
-	if(edgefile[0] == 0 && !FastG) {
+	if(edgefile[0] == 0 && !FastG && !FastGSPaDes) {
 		printusage("Graph file not specified");
 	}
 	if(edgeseqfile[0] == 0) {
@@ -111,6 +115,8 @@ int main(int argc, char **argv)
 	//load assembly graph: inputs, edgefile & edgeseqfile
 	if(FastG)	{	 // assembly graph in FastG format, only the contig file is needed.
 		eng -> loadFastG(edgeseqfile);
+	} else if(FastGSPaDes)	{	 // assembly graph in FastG format output by SPaDes, only the contig file is needed.
+		eng -> loadFastGSPaDes(edgeseqfile);
 	} else	{		//assembly graph in SOAP format, both the contig and graph files are needed.
 		eng -> loadsoap(SOAP2, edgefile, edgeseqfile);
 	}
@@ -151,5 +157,6 @@ void printusage(char *error)
 	cout<<"-d max_depth: default 10"<<endl;
 	cout<<"-u (SOAP when set; default off for SOAP2)"<<endl;
 	cout<<"-f (FastG when set; default off for SOAP2)"<<endl;
+	cout<<"-S (FastG output by MetaSPaDes when set; default off for SOAP2)"<<endl;
 	exit(-1);
 }

@@ -2,7 +2,7 @@
 #
 #objects := $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 objects0 :=  smallapp.o seq.o 
-objects1 :=  soap.o FastG.o seqgraph.o
+objects1 :=  soap.o FastG.o seqgraph.o FastG_SPaDes.o
 objects2 :=  Graph2Pro.o
 objects3 :=  GraphPep2Pro.o
 
@@ -27,12 +27,13 @@ else
 endif
 
 INC := -I ./
+LIB := -lm
 
 DBGraph2Pro: DBGraph2Pro_main.cpp $(objects0) $(objects1) $(objects2)
-	$(CXX) $(CXXFLAGS) -o DBGraph2Pro DBGraph2Pro_main.cpp $(objects0) $(objects1) $(objects2) $(INC) 
+	$(CXX) $(CXXFLAGS) -o DBGraph2Pro DBGraph2Pro_main.cpp $(objects0) $(objects1) $(objects2) $(INC) $(LIB)
 
 DBGraphPep2Pro: DBGraphPep2Pro_main.cpp $(objects0) $(objects1) $(objects3)
-	$(CXX) $(CXXFLAGS) -o DBGraphPep2Pro DBGraphPep2Pro_main.cpp $(objects0) $(objects1) $(objects3) $(INC) 
+	$(CXX) $(CXXFLAGS) -o DBGraphPep2Pro DBGraphPep2Pro_main.cpp $(objects0) $(objects1) $(objects3) $(INC) $(LIB)
 
 $(objects0) : %.o : %.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@ $(INC)

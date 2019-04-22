@@ -12,6 +12,7 @@ class seqgraph {
 		VERTEX *vertex; //??
 
 		int num_edge;
+		char **alledgename;	// for SPaDes
 		EDGE *edge; //contigs -- contain seq etc
 
 		int hashw;
@@ -27,6 +28,7 @@ class seqgraph {
 		void set_maskv(void);
 		void loadsoap(bool SOAP2, char *edgefile, char *edgeseqfile);
 		void loadFastG(char *edgeseqfile);
+		void loadFastGSPaDes(char *edgeseqfile);
 		void index_vertex(void);
 		void lindex_vertex(void);
 		void print_vertex_degree(void);
