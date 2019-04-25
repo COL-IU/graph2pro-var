@@ -797,26 +797,14 @@ void GraphTrav::writefile(char *outputfile)
 	int	numpep = 0;
 	std::ofstream fs(outputfile);
 	if(!fs) { cout<<"cannot open file to write "<< outputfile <<endl; exit(0); }
-/*
-printf("continue %d\n", num_peptides);
-*/
 	printf("%d peptides generated.\n", num_peptides);
 	numpep = outputseq(fs, pepseq, numpep);
-/*
-printf("continue10 numpep %d\n", numpep);
-*/
 }
 
 int GraphTrav::outputseq(ofstream &fs, PEPTIDESEQ *pepseq, int numpep)
 {
 	if(pepseq)	{
 		numpep = outputseq(fs, pepseq -> left, numpep);
-/*
-if(pepseq -> beg_edge_index == 1876151 || pepseq -> beg_edge_index == 4590727)	{
-printf("pepseq %d Length %d Input %d %d %d %d\n", pepseq, pepseq -> length, pepseq -> beg_edge_index, pepseq -> beg_edge_offset, pepseq -> end_edge_index, pepseq -> end_edge_offset);
-getchar();
-}
-*/
 		output_peptides(fs, numpep, pepseq -> seq, pepseq -> length, pepseq -> beg_edge_index, pepseq -> beg_edge_offset,
 				pepseq -> end_edge_index, pepseq -> end_edge_offset, pepseq -> flag_stopcodon);
 		free((void *) pepseq -> seq);

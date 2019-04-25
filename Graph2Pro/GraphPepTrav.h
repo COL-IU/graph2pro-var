@@ -18,6 +18,8 @@ class GraphPepTrav:public seqgraph
 		int	*len_proteins;
 		char	**seq_proteins; // output protein sequences
 		char	**mark_proteins; // label identified peptides
+		int	*start_contig_index, *end_contig_index; // start and end indices of the contigs for each extracted protein
+		int	*start_contig_pos, *end_contig_pos; // start and end positions for the contigs for each extracted protein
 		int	max_length;
 
 		int	max_miscleavage; //maximum number of allowed miscleavage 
@@ -48,7 +50,7 @@ class GraphPepTrav:public seqgraph
 		int	extract_prev_peptides_same_edge(EDGE *inedge, int offset, char *lastseq, int len_lastseq);
 		int	appendpep(char *lastpep, int len_lastpep, char *tmppep, int length);
 		void	writefile(char *outputfile);
-		void	outputseq(int index, ofstream &fp, char *seq, char *mark_proteins, int length);
+		void	outputseq(int index, ofstream &fp, char *seq, char *mark_proteins, int length, int start_contig_index, int start_contig_pos, int end_contig_index, int end_contig_pos);
 		void	outnucseq(int index, ofstream &fp, char *seq, int length);
 		int	trans_codon2aa(char *tmpcodon, int len_codonseq, char *pepseq);
 

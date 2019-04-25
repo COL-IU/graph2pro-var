@@ -1,1 +1,1 @@
-void GraphPepTrav::outnucseq(int index, ofstream &fp, char *seq, int length)
+		PEPTIDESEQ* insert_pepseq(PEPTIDESEQ *pepseq, char *seq, int length);

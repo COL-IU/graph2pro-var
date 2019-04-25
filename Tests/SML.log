@@ -1,0 +1,877 @@
+SML.par found -- nice
+k99.contigs.fastg found
+SML.mgf found
+check programs...
+  /nfs/darwin/data/proteomics/graph2pro-var/Graph2Pro/DBGraph2Pro found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/FragGeneScan1.30/run_FragGeneScan.pl found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/RAPSearch/bin/rapsearch found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/MSGFPlus.jar found -- nice
+  /nfs/darwin/data/proteomics/graph2pro-var/bowtie2-2.3.3.1/bowtie2 found -- nice
+Now run Graph2Pep...
+
+>>>Now read edges from file k99.contigs.fastg
+num edge to be allocated: 242
+
+>>>Now read edge names from file k99.contigs.fastg
+ kmersize 99
+edgeseqfile k99.contigs.fastg
+242 edges input
+num_vertex 242
+num_vertex 316
+input edge extracted: 242
+vertex created: 316
+print_vertex_degree..
+Degree distribution..
+-----------------------
+0 74 0 0 0 
+74 168 0 0 0 
+0 0 0 0 0 
+0 0 0 0 0 
+0 0 0 0 0 
+-----------------------
+hashtablesize 0
+index vertex...
+kmer 99 hashw 0 shift 198
+index 1436004999933780239 -1317601491143291096 hashv 114019856
+
+>>>Now Traverse the graph...
+Check at the beginning of graph traversal
+Peptides of lengths between 8 and 40 will be output
+1119 peptides generated.
+Total time used: 0 sec (0 sec for computing proteins)
+SML_newFDR.graph2pep.fixedKR.fasta
+Now prepare SML_newFDR.contig.fasta file...
+Now run FGS for contigs...
+/nfs/darwin/data/proteomics/graph2pro-var/FragGeneScan1.30/FragGeneScan -s SML_newFDR.contig.fasta -o SML_newFDR.contig.fgs -w 0 -t complete -p 8
+Using 8 threads.
+no. of seqs: 121
+Clock time used (by 8 threads) = 0.01 mins
+prepare gff file..
+Time elapsed: 0 hours 0 minutes and 0 seconds.
+Now run MSGF+ against contigs...
+java -Xmx32g -jar /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/MSGFPlus.jar -s SML.mgf -o SML_newFDR.fgs.mzid -d SML_newFDR.contig.fgs.fasta -inst 1 -t 15ppm -ti -1,2 -mod /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread 8
+MS-GF+ Beta (v10089) (7/16/2014)
+Loading database files...
+Creating /nfs/darwin/data/proteomics/graph2pro-var/Tests/SML_newFDR.contig.fgs.revCat.fasta.
+Creating the suffix array indexed file... Size: 14831
+AlphabetSize: 28
+Suffix creation: 0.00% complete.
+Sorting 0.00% complete.
+Sorting 5.81% complete.
+Sorting 11.62% complete.
+Sorting 17.43% complete.
+Sorting 23.24% complete.
+Sorting 29.05% complete.
+Sorting 34.86% complete.
+Sorting 40.67% complete.
+Sorting 46.48% complete.
+Sorting 52.29% complete.
+Sorting 58.10% complete.
+Sorting 63.91% complete.
+Sorting 69.73% complete.
+Sorting 75.54% complete.
+Sorting 81.35% complete.
+Sorting 87.16% complete.
+Sorting 92.97% complete.
+Sorting 98.78% complete.
+Loading database finished (elapsed time: 0.60 sec)
+Reading spectra...
+Ignoring 0 profile spectra.
+Ignoring 72 spectra having less than 10 peaks.
+Reading spectra finished (elapsed time: 5.97 sec)
+Using 8 threads.
+Search Parameters:
+	PrecursorMassTolerance: 15.0ppm
+	IsotopeError: -1,2
+	TargetDecoyAnalysis: true
+	FragmentationMethod: As written in the spectrum or CID if no info
+	Instrument: HighRes
+	Enzyme: Tryp
+	Protocol: Standard
+	NumTolerableTermini: 1
+	MinPeptideLength: 6
+	MaxPeptideLength: 40
+	NumMatchesPerSpec: 1
+Spectrum 0-23704 (total: 23705)
+pool-1-thread-8: Preprocessing spectra...
+Loading built-in param file: CID_HighRes_Tryp.param
+pool-1-thread-5: Preprocessing spectra...
+pool-1-thread-4: Preprocessing spectra...
+pool-1-thread-6: Preprocessing spectra...
+pool-1-thread-7: Preprocessing spectra...
+pool-1-thread-3: Preprocessing spectra...
+pool-1-thread-2: Preprocessing spectra...
+pool-1-thread-1: Preprocessing spectra...
+pool-1-thread-4: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-4: Database search...
+pool-1-thread-4: Database search progress... 0.0% complete
+pool-1-thread-2: Preprocessing spectra finished (elapsed time: 38.00 sec)
+pool-1-thread-2: Database search...
+pool-1-thread-2: Database search progress... 0.0% complete
+pool-1-thread-4: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-4: Computing spectral E-values...
+pool-1-thread-2: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-2: Computing spectral E-values...
+pool-1-thread-3: Preprocessing spectra finished (elapsed time: 38.00 sec)
+pool-1-thread-3: Database search...
+pool-1-thread-3: Database search progress... 0.0% complete
+pool-1-thread-3: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-3: Computing spectral E-values...
+pool-1-thread-5: Preprocessing spectra finished (elapsed time: 39.00 sec)
+pool-1-thread-5: Database search...
+pool-1-thread-5: Database search progress... 0.0% complete
+pool-1-thread-5: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-5: Computing spectral E-values...
+pool-1-thread-7: Preprocessing spectra finished (elapsed time: 40.00 sec)
+pool-1-thread-7: Database search...
+pool-1-thread-7: Database search progress... 0.0% complete
+pool-1-thread-1: Preprocessing spectra finished (elapsed time: 40.00 sec)
+pool-1-thread-1: Database search...
+pool-1-thread-1: Database search progress... 0.0% complete
+pool-1-thread-8: Preprocessing spectra finished (elapsed time: 40.00 sec)
+pool-1-thread-8: Database search...
+pool-1-thread-8: Database search progress... 0.0% complete
+pool-1-thread-6: Preprocessing spectra finished (elapsed time: 40.00 sec)
+pool-1-thread-6: Database search...
+pool-1-thread-6: Database search progress... 0.0% complete
+pool-1-thread-7: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-7: Computing spectral E-values...
+pool-1-thread-1: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-1: Computing spectral E-values...
+pool-1-thread-8: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-8: Computing spectral E-values...
+pool-1-thread-6: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-6: Computing spectral E-values...
+pool-1-thread-3: Computing spectral E-values... 33.7% complete
+pool-1-thread-4: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values... 33.7% complete
+pool-1-thread-5: Computing spectral E-values... 33.7% complete
+pool-1-thread-7: Computing spectral E-values... 33.7% complete
+pool-1-thread-6: Computing spectral E-values... 33.7% complete
+pool-1-thread-8: Computing spectral E-values... 33.7% complete
+pool-1-thread-1: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values... 67.5% complete
+pool-1-thread-4: Computing spectral E-values... 67.5% complete
+pool-1-thread-3: Computing spectral E-values... 67.5% complete
+pool-1-thread-5: Computing spectral E-values... 67.5% complete
+pool-1-thread-7: Computing spectral E-values... 67.5% complete
+pool-1-thread-6: Computing spectral E-values... 67.5% complete
+pool-1-thread-1: Computing spectral E-values... 67.5% complete
+pool-1-thread-8: Computing spectral E-values... 67.5% complete
+pool-1-thread-2: Computing spectral E-values finished (elapsed time: 303.00 sec)
+pool-1-thread-4: Computing spectral E-values finished (elapsed time: 308.00 sec)
+pool-1-thread-3: Computing spectral E-values finished (elapsed time: 312.00 sec)
+pool-1-thread-5: Computing spectral E-values finished (elapsed time: 313.00 sec)
+pool-1-thread-6: Computing spectral E-values finished (elapsed time: 316.00 sec)
+pool-1-thread-7: Computing spectral E-values finished (elapsed time: 318.00 sec)
+pool-1-thread-1: Computing spectral E-values finished (elapsed time: 322.00 sec)
+pool-1-thread-8: Computing spectral E-values finished (elapsed time: 325.00 sec)
+Computing q-values...
+Computing q-values finished (elapsed time: 0.10 sec)
+Writing results...
+Writing results finished (elapsed time: 6.42 sec)
+MS-GF+ complete (total elapsed time: 379.77 sec)
+MzIDToTsv v9108 (7/16/2014)
+Converting SML_newFDR.fgs.mzid into SML_newFDR.fgs.tsv
+MzIDToTsv complete (total elapsed time: 22.43 sec)
+1.0 	1.0 	1.0 	2.743795e-10
+Now run MSGF+ against graph2pep...
+MS-GF+ Beta (v10089) (7/16/2014)
+Loading database files...
+Creating the suffix array indexed file... Size: 31747
+AlphabetSize: 28
+Suffix creation: 0.00% complete.
+Sorting 0.00% complete.
+Sorting 5.81% complete.
+Sorting 11.62% complete.
+Sorting 17.43% complete.
+Sorting 23.24% complete.
+Sorting 29.05% complete.
+Sorting 34.86% complete.
+Sorting 40.67% complete.
+Sorting 46.48% complete.
+Sorting 52.29% complete.
+Sorting 58.10% complete.
+Sorting 63.91% complete.
+Sorting 69.73% complete.
+Sorting 75.54% complete.
+Sorting 81.35% complete.
+Sorting 87.16% complete.
+Sorting 92.97% complete.
+Sorting 98.78% complete.
+Loading database finished (elapsed time: 0.80 sec)
+Reading spectra...
+Ignoring 0 profile spectra.
+Ignoring 72 spectra having less than 10 peaks.
+Reading spectra finished (elapsed time: 5.76 sec)
+Using 8 threads.
+Search Parameters:
+	PrecursorMassTolerance: 15.0ppm
+	IsotopeError: -1,2
+	TargetDecoyAnalysis: false
+	FragmentationMethod: As written in the spectrum or CID if no info
+	Instrument: HighRes
+	Enzyme: Tryp
+	Protocol: Standard
+	NumTolerableTermini: 1
+	MinPeptideLength: 6
+	MaxPeptideLength: 40
+	NumMatchesPerSpec: 1
+Spectrum 0-23704 (total: 23705)
+pool-1-thread-4: Preprocessing spectra...
+Loading built-in param file: CID_HighRes_Tryp.param
+pool-1-thread-6: Preprocessing spectra...
+pool-1-thread-8: Preprocessing spectra...
+pool-1-thread-5: Preprocessing spectra...
+pool-1-thread-7: Preprocessing spectra...
+pool-1-thread-3: Preprocessing spectra...
+pool-1-thread-2: Preprocessing spectra...
+pool-1-thread-1: Preprocessing spectra...
+pool-1-thread-4: Preprocessing spectra finished (elapsed time: 35.00 sec)
+pool-1-thread-4: Database search...
+pool-1-thread-4: Database search progress... 0.0% complete
+pool-1-thread-4: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-4: Computing spectral E-values...
+pool-1-thread-2: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-2: Database search...
+pool-1-thread-2: Database search progress... 0.0% complete
+pool-1-thread-2: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-2: Computing spectral E-values...
+pool-1-thread-3: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-3: Database search...
+pool-1-thread-3: Database search progress... 0.0% complete
+pool-1-thread-5: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-5: Database search...
+pool-1-thread-5: Database search progress... 0.0% complete
+pool-1-thread-6: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-6: Database search...
+pool-1-thread-6: Database search progress... 0.0% complete
+pool-1-thread-3: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-3: Computing spectral E-values...
+pool-1-thread-1: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-1: Database search...
+pool-1-thread-1: Database search progress... 0.0% complete
+pool-1-thread-7: Preprocessing spectra finished (elapsed time: 38.00 sec)
+pool-1-thread-7: Database search...
+pool-1-thread-7: Database search progress... 0.0% complete
+pool-1-thread-8: Preprocessing spectra finished (elapsed time: 38.00 sec)
+pool-1-thread-8: Database search...
+pool-1-thread-8: Database search progress... 0.0% complete
+pool-1-thread-6: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-6: Computing spectral E-values...
+pool-1-thread-5: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-5: Computing spectral E-values...
+pool-1-thread-1: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-1: Computing spectral E-values...
+pool-1-thread-7: Database search finished (elapsed time: 1.00 sec)
+pool-1-thread-7: Computing spectral E-values...
+pool-1-thread-8: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-8: Computing spectral E-values...
+pool-1-thread-4: Computing spectral E-values... 33.7% complete
+pool-1-thread-3: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values... 33.7% complete
+pool-1-thread-5: Computing spectral E-values... 33.7% complete
+pool-1-thread-6: Computing spectral E-values... 33.7% complete
+pool-1-thread-7: Computing spectral E-values... 33.7% complete
+pool-1-thread-8: Computing spectral E-values... 33.7% complete
+pool-1-thread-1: Computing spectral E-values... 33.7% complete
+pool-1-thread-4: Computing spectral E-values... 67.5% complete
+pool-1-thread-3: Computing spectral E-values... 67.5% complete
+pool-1-thread-2: Computing spectral E-values... 67.5% complete
+pool-1-thread-6: Computing spectral E-values... 67.5% complete
+pool-1-thread-5: Computing spectral E-values... 67.5% complete
+pool-1-thread-7: Computing spectral E-values... 67.5% complete
+pool-1-thread-1: Computing spectral E-values... 67.5% complete
+pool-1-thread-8: Computing spectral E-values... 67.5% complete
+pool-1-thread-4: Computing spectral E-values finished (elapsed time: 304.00 sec)
+pool-1-thread-3: Computing spectral E-values finished (elapsed time: 305.00 sec)
+pool-1-thread-2: Computing spectral E-values finished (elapsed time: 309.00 sec)
+pool-1-thread-5: Computing spectral E-values finished (elapsed time: 318.00 sec)
+pool-1-thread-6: Computing spectral E-values finished (elapsed time: 321.00 sec)
+pool-1-thread-1: Computing spectral E-values finished (elapsed time: 323.00 sec)
+pool-1-thread-7: Computing spectral E-values finished (elapsed time: 325.00 sec)
+pool-1-thread-8: Computing spectral E-values finished (elapsed time: 327.00 sec)
+Writing results...
+Writing results finished (elapsed time: 6.88 sec)
+MS-GF+ complete (total elapsed time: 380.20 sec)
+MzIDToTsv v9108 (7/16/2014)
+Converting SML_newFDR.graph2pep.mzid into SML_newFDR.graph2pep.tsv
+MzIDToTsv complete (total elapsed time: 22.88 sec)
+Now run combineFragDBGraph...
+1.0 	1.0 	1.0 	2.743795e-10
+1.0 	1.0 	1.0 	9.205347e-09
+load SML_newFDR.contig.fgs.fasta
+Now run GraphPep2Pro...
+/nfs/darwin/data/proteomics/graph2pro-var/Graph2Pro/DBGraphPep2Pro -s k99.contigs.fastg -f -p SML_newFDR.step1.output -o SML_newFDR.step1.fasta -k 99 -d 5
+
+>>>Now read edges from file k99.contigs.fastg
+num edge to be allocated: 242
+ kmersize 99
+edgeseqfile k99.contigs.fastg
+242 edges input
+num_vertex 242
+num_vertex 316
+input edge extracted: 242
+vertex created: 316
+print_vertex_degree..
+Degree distribution..
+-----------------------
+0 74 0 0 0 
+74 168 0 0 0 
+0 0 0 0 0 
+0 0 0 0 0 
+0 0 0 0 0 
+-----------------------
+hashtablesize 0
+index vertex...
+kmer 99 hashw 0 shift 198
+index 1436004999933780239 -1317601491143291096 hashv 114019856
+input peptides
+0 out of 2 (0.00%) are peptides spanning multiple edges.
+generate peptide map ...
+sort peptide map ...
+Connect peptides...
+forward connection done
+backward connection done
+Traverse the graph...
+
+>>>Now Traverse the graph...
+Check at the beginning of graph traversal
+Back-extend peptides...
+traverse graph done
+Connect peptides into proteins.
+Output proteins...
+1 proteins generated.
+# long proteins (>150 aa): 0, total length: 0
+Total time used: 0 sec (0 sec for computing proteins)
+================================================================
+Program: CD-HIT, V4.7 (+OpenMP), Aug 28 2018, 15:35:59
+Command:
+         /nfs/darwin/data/proteomics/graph2pro-var/cd-hit/cd-hit
+         -i SML_newFDR.step1.fasta.12 -c 1.0 -o
+         SML_newFDR.step1.fasta -d 0
+
+Started: Thu Apr 25 12:15:26 2019
+================================================================
+                            Output                              
+----------------------------------------------------------------
+total seq: 2
+longest and shortest : 70 and 53
+Total letters: 123
+Sequences have been sorted
+
+Approximated minimal memory consumption:
+Sequence        : 0M
+Buffer          : 1 X 10M = 10M
+Table           : 1 X 65M = 65M
+Miscellaneous   : 0M
+Total           : 75M
+
+Table limit with the given memory limit:
+Max number of representatives: 4000000
+Max number of word counting entries: 90518709
+
+comparing sequences from          0  to          2
+
+        2  finished          1  clusters
+
+Apprixmated maximum memory consumption: 75M
+writing new database
+writing clustering information
+program completed !
+
+Total CPU time 0.06
+Now search against graph2pro db...
+MS-GF+ Beta (v10089) (7/16/2014)
+Loading database files...
+Creating /nfs/darwin/data/proteomics/graph2pro-var/Tests/SML_newFDR.graph2pro.revCat.fasta.
+Warning: database does not contain all standard amino acids. Probability 0.05 will be used for all amino acids.
+Creating the suffix array indexed file... Size: 143
+AlphabetSize: 28
+Suffix creation: 0.00% complete.
+Sorting 0.00% complete.
+Sorting 5.81% complete.
+Sorting 11.62% complete.
+Sorting 17.43% complete.
+Sorting 23.24% complete.
+Sorting 29.05% complete.
+Sorting 34.86% complete.
+Sorting 40.67% complete.
+Sorting 46.48% complete.
+Sorting 52.29% complete.
+Sorting 58.10% complete.
+Sorting 63.91% complete.
+Sorting 69.73% complete.
+Sorting 75.54% complete.
+Sorting 81.35% complete.
+Sorting 87.16% complete.
+Sorting 92.97% complete.
+Sorting 98.78% complete.
+Loading database finished (elapsed time: 0.59 sec)
+Reading spectra...
+Ignoring 0 profile spectra.
+Ignoring 72 spectra having less than 10 peaks.
+Reading spectra finished (elapsed time: 6.19 sec)
+Using 8 threads.
+Search Parameters:
+	PrecursorMassTolerance: 15.0ppm
+	IsotopeError: -1,2
+	TargetDecoyAnalysis: true
+	FragmentationMethod: As written in the spectrum or CID if no info
+	Instrument: HighRes
+	Enzyme: Tryp
+	Protocol: Standard
+	NumTolerableTermini: 1
+	MinPeptideLength: 6
+	MaxPeptideLength: 40
+	NumMatchesPerSpec: 1
+Spectrum 0-23704 (total: 23705)
+pool-1-thread-7: Preprocessing spectra...
+Loading built-in param file: CID_HighRes_Tryp.param
+pool-1-thread-3: Preprocessing spectra...
+pool-1-thread-6: Preprocessing spectra...
+pool-1-thread-4: Preprocessing spectra...
+pool-1-thread-8: Preprocessing spectra...
+pool-1-thread-5: Preprocessing spectra...
+pool-1-thread-2: Preprocessing spectra...
+pool-1-thread-1: Preprocessing spectra...
+pool-1-thread-4: Preprocessing spectra finished (elapsed time: 34.00 sec)
+pool-1-thread-4: Database search...
+pool-1-thread-4: Database search progress... 0.0% complete
+pool-1-thread-4: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-4: Computing spectral E-values...
+pool-1-thread-4: Computing spectral E-values... 33.7% complete
+pool-1-thread-4: Computing spectral E-values... 67.5% complete
+pool-1-thread-4: Computing spectral E-values finished (elapsed time: 1.00 sec)
+pool-1-thread-3: Preprocessing spectra finished (elapsed time: 35.00 sec)
+pool-1-thread-3: Database search...
+pool-1-thread-3: Database search progress... 0.0% complete
+pool-1-thread-3: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-3: Computing spectral E-values...
+pool-1-thread-3: Computing spectral E-values... 33.7% complete
+pool-1-thread-7: Preprocessing spectra finished (elapsed time: 35.00 sec)
+pool-1-thread-7: Database search...
+pool-1-thread-7: Database search progress... 0.0% complete
+pool-1-thread-3: Computing spectral E-values... 67.5% complete
+pool-1-thread-7: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-7: Computing spectral E-values...
+pool-1-thread-7: Computing spectral E-values... 33.7% complete
+pool-1-thread-3: Computing spectral E-values finished (elapsed time: 0.00 sec)
+pool-1-thread-7: Computing spectral E-values... 67.5% complete
+pool-1-thread-2: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-2: Database search...
+pool-1-thread-2: Database search progress... 0.0% complete
+pool-1-thread-2: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-2: Computing spectral E-values...
+pool-1-thread-6: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-6: Database search...
+pool-1-thread-6: Database search progress... 0.0% complete
+pool-1-thread-6: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-6: Computing spectral E-values...
+pool-1-thread-7: Computing spectral E-values finished (elapsed time: 0.00 sec)
+pool-1-thread-8: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-8: Database search...
+pool-1-thread-8: Database search progress... 0.0% complete
+pool-1-thread-8: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-8: Computing spectral E-values...
+pool-1-thread-1: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-1: Database search...
+pool-1-thread-1: Database search progress... 0.0% complete
+pool-1-thread-1: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-1: Computing spectral E-values...
+pool-1-thread-1: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values... 33.7% complete
+pool-1-thread-5: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-5: Database search...
+pool-1-thread-5: Database search progress... 0.0% complete
+pool-1-thread-5: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-5: Computing spectral E-values...
+pool-1-thread-1: Computing spectral E-values... 67.5% complete
+pool-1-thread-5: Computing spectral E-values... 33.7% complete
+pool-1-thread-1: Computing spectral E-values finished (elapsed time: 0.00 sec)
+pool-1-thread-6: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values... 67.5% complete
+pool-1-thread-5: Computing spectral E-values... 67.5% complete
+pool-1-thread-8: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values finished (elapsed time: 1.00 sec)
+pool-1-thread-6: Computing spectral E-values... 67.5% complete
+pool-1-thread-8: Computing spectral E-values... 67.5% complete
+pool-1-thread-8: Computing spectral E-values finished (elapsed time: 1.00 sec)
+pool-1-thread-6: Computing spectral E-values finished (elapsed time: 1.00 sec)
+pool-1-thread-5: Computing spectral E-values finished (elapsed time: 1.00 sec)
+Computing q-values...
+Computing q-values finished (elapsed time: 0.01 sec)
+Writing results...
+Writing results finished (elapsed time: 0.77 sec)
+MS-GF+ complete (total elapsed time: 45.53 sec)
+MzIDToTsv v9108 (7/16/2014)
+Converting SML_newFDR.graph2pro.mzid into SML_newFDR.graph2pro.tsv
+MzIDToTsv complete (total elapsed time: 1.15 sec)
+15.0 	1.0 	0.0666666666667 	7.4677795e-05
+3.0 	1.0 	0.333333333333 	7.4677795e-05
+Now run steps to collect read_f containing variants...
+Now prepare bowtie2 database...
+Settings:
+  Output files: "SML_newFDR.contig.bw2.*.bt2"
+  Line rate: 6 (line is 64 bytes)
+  Lines per side: 1 (side is 64 bytes)
+  Offset rate: 4 (one in 16)
+  FTable chars: 10
+  Strings: unpacked
+  Max bucket size: default
+  Max bucket size, sqrt multiplier: default
+  Max bucket size, len divisor: 4
+  Difference-cover sample period: 1024
+  Endianness: little
+  Actual local endianness: little
+  Sanity checking: disabled
+  Assertions: disabled
+  Random seed: 0
+  Sizeofs: void*:8, int:4, long:8, size_t:8
+Input files DNA, FASTA:
+  SML_newFDR.contig.fasta
+Building a SMALL index
+Reading reference sizes
+  Time reading reference sizes: 00:00:00
+Calculating joined length
+Writing header
+Reserving space for joined string
+Joining reference sequences
+  Time to join reference sequences: 00:00:00
+bmax according to bmaxDivN setting: 6469
+Using parameters --bmax 4852 --dcv 1024
+  Doing ahead-of-time memory usage test
+  Passed!  Constructing with these parameters: --bmax 4852 --dcv 1024
+Constructing suffix-array element generator
+Building DifferenceCoverSample
+  Building sPrime
+  Building sPrimeOrder
+  V-Sorting samples
+  V-Sorting samples time: 00:00:00
+  Allocating rank array
+  Ranking v-sort output
+  Ranking v-sort output time: 00:00:00
+  Invoking Larsson-Sadakane on ranks
+  Invoking Larsson-Sadakane on ranks time: 00:00:00
+  Sanity-checking and returning
+Building samples
+Reserving space for 12 sample suffixes
+Generating random suffixes
+QSorting 12 sample offsets, eliminating duplicates
+QSorting sample offsets, eliminating duplicates time: 00:00:00
+Multikey QSorting 12 samples
+  (Using difference cover)
+  Multikey QSorting samples time: 00:00:00
+Calculating bucket sizes
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Avg bucket size: 25877 (target: 4851)
+Converting suffix-array elements to index image
+Allocating ftab, absorbFtab
+Entering Ebwt loop
+Getting block 1 of 1
+  No samples; assembling all-inclusive block
+  Sorting block of length 25877 for bucket 1
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 25878 for bucket 1
+Exited Ebwt loop
+fchr[A]: 0
+fchr[C]: 8847
+fchr[G]: 13952
+fchr[T]: 18829
+fchr[$]: 25877
+Exiting Ebwt::buildToDisk()
+Returning from initFromVector
+Wrote 4209464 bytes to primary EBWT file: SML_newFDR.contig.bw2.1.bt2
+Wrote 6476 bytes to secondary EBWT file: SML_newFDR.contig.bw2.2.bt2
+Re-opening _in1 and _in2 as input streams
+Returning from Ebwt constructor
+Headers:
+    len: 25877
+    bwtLen: 25878
+    sz: 6470
+    bwtSz: 6470
+    lineRate: 6
+    offRate: 4
+    offMask: 0xfffffff0
+    ftabChars: 10
+    eftabLen: 20
+    eftabSz: 80
+    ftabLen: 1048577
+    ftabSz: 4194308
+    offsLen: 1618
+    offsSz: 6472
+    lineSz: 64
+    sideSz: 64
+    sideBwtSz: 48
+    sideBwtLen: 192
+    numSides: 135
+    numLines: 135
+    ebwtTotLen: 8640
+    ebwtTotSz: 8640
+    color: 0
+    reverse: 0
+Total time for call to driver() for forward index: 00:00:00
+Reading reference sizes
+  Time reading reference sizes: 00:00:00
+Calculating joined length
+Writing header
+Reserving space for joined string
+Joining reference sequences
+  Time to join reference sequences: 00:00:00
+  Time to reverse reference sequence: 00:00:00
+bmax according to bmaxDivN setting: 6469
+Using parameters --bmax 4852 --dcv 1024
+  Doing ahead-of-time memory usage test
+  Passed!  Constructing with these parameters: --bmax 4852 --dcv 1024
+Constructing suffix-array element generator
+Building DifferenceCoverSample
+  Building sPrime
+  Building sPrimeOrder
+  V-Sorting samples
+  V-Sorting samples time: 00:00:00
+  Allocating rank array
+  Ranking v-sort output
+  Ranking v-sort output time: 00:00:00
+  Invoking Larsson-Sadakane on ranks
+  Invoking Larsson-Sadakane on ranks time: 00:00:00
+  Sanity-checking and returning
+Building samples
+Reserving space for 12 sample suffixes
+Generating random suffixes
+QSorting 12 sample offsets, eliminating duplicates
+QSorting sample offsets, eliminating duplicates time: 00:00:00
+Multikey QSorting 12 samples
+  (Using difference cover)
+  Multikey QSorting samples time: 00:00:00
+Calculating bucket sizes
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Avg bucket size: 25877 (target: 4851)
+Converting suffix-array elements to index image
+Allocating ftab, absorbFtab
+Entering Ebwt loop
+Getting block 1 of 1
+  No samples; assembling all-inclusive block
+  Sorting block of length 25877 for bucket 1
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 25878 for bucket 1
+Exited Ebwt loop
+fchr[A]: 0
+fchr[C]: 8847
+fchr[G]: 13952
+fchr[T]: 18829
+fchr[$]: 25877
+Exiting Ebwt::buildToDisk()
+Returning from initFromVector
+Wrote 4209464 bytes to primary EBWT file: SML_newFDR.contig.bw2.rev.1.bt2
+Wrote 6476 bytes to secondary EBWT file: SML_newFDR.contig.bw2.rev.2.bt2
+Re-opening _in1 and _in2 as input streams
+Returning from Ebwt constructor
+Headers:
+    len: 25877
+    bwtLen: 25878
+    sz: 6470
+    bwtSz: 6470
+    lineRate: 6
+    offRate: 4
+    offMask: 0xfffffff0
+    ftabChars: 10
+    eftabLen: 20
+    eftabSz: 80
+    ftabLen: 1048577
+    ftabSz: 4194308
+    offsLen: 1618
+    offsSz: 6472
+    lineSz: 64
+    sideSz: 64
+    sideBwtSz: 48
+    sideBwtLen: 192
+    numSides: 135
+    numLines: 135
+    ebwtTotLen: 8640
+    ebwtTotSz: 8640
+    color: 0
+    reverse: 1
+Total time for backward call to driver() for mirror index: 00:00:00
+Now run bowtie2...
+/nfs/darwin/data/proteomics/graph2pro-var/bowtie2-2.3.3.1/bowtie2 -x SML_newFDR.contig.bw2 -1 SML.1.fq -2 SML.2.fq -U SML.singleton.fq --no-head --no-unal --un-conc SML_newFDR.un-conc.fq --un SML_newFDR.un.fq -S SML_newFDR.sam -p 8
+101000 reads; of these:
+  100000 (99.01%) were paired; of these:
+    99832 (99.83%) aligned concordantly 0 times
+    162 (0.16%) aligned concordantly exactly 1 time
+    6 (0.01%) aligned concordantly >1 times
+    ----
+    99832 pairs aligned concordantly 0 times; of these:
+      21 (0.02%) aligned discordantly 1 time
+    ----
+    99811 pairs aligned 0 times concordantly or discordantly; of these:
+      199622 mates make up the pairs; of these:
+        199533 (99.96%) aligned 0 times
+        75 (0.04%) aligned exactly 1 time
+        14 (0.01%) aligned >1 times
+  1000 (0.99%) were unpaired; of these:
+    1000 (100.00%) aligned 0 times
+    0 (0.00%) aligned exactly 1 time
+    0 (0.00%) aligned >1 times
+0.23% overall alignment rate
+SML_newFDR.sam looks good
+Now run FGS for variant reads...
+/nfs/darwin/data/proteomics/graph2pro-var/FragGeneScan1.30/FragGeneScan -s SML_newFDR.mismatched.higherthan1.fasta -o SML_newFDR.mismatched.fgs -w 0 -t complete -p 8
+Using 8 threads.
+no. of seqs: 223
+Clock time used (by 8 threads) = 0.01 mins
+prepare gff file..
+Time elapsed: 0 hours 0 minutes and 0 seconds.
+/nfs/darwin/data/proteomics/graph2pro-var/FragGeneScan1.30/FragGeneScan -s SML_newFDR.uncordant.fasta -o SML_newFDR.uncordant.fgs -w 0 -t complete -p 8
+Using 8 threads.
+no. of seqs: 200664
+Clock time used (by 8 threads) = 3.71 mins
+prepare gff file..
+Time elapsed: 0 hours 1 minutes and 6 seconds.
+Now run rapsearch...
+now building hash file
+hash file saved to file SML_newFDR.graph2pro.rapsearch
+>>>Main END
+Now extract variant peptides...
+queryHash done
+queryHash done
+Now run MSGF+ against variants...
+java -Xmx32g -jar /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/MSGFPlus.jar -s SML.mgf -o SML_newFDR.var2pep.mzid -d SML_newFDR.var2pep.fasta -inst 1 -t 15ppm -ti -1,2 -mod /nfs/darwin/data/proteomics/graph2pro-var/MSGF+/Mods_normal.txt -ntt 1 -tda 1 -maxCharge 7 -minCharge 1 -addFeatures 1 -n 1 -thread 8
+MS-GF+ Beta (v10089) (7/16/2014)
+Loading database files...
+Creating /nfs/darwin/data/proteomics/graph2pro-var/Tests/SML_newFDR.var2pep.revCat.fasta.
+Warning: database does not contain all standard amino acids. Probability 0.05 will be used for all amino acids.
+Creating the suffix array indexed file... Size: 67
+AlphabetSize: 28
+Suffix creation: 0.00% complete.
+Sorting 0.00% complete.
+Sorting 5.81% complete.
+Sorting 11.62% complete.
+Sorting 17.43% complete.
+Sorting 23.24% complete.
+Sorting 29.05% complete.
+Sorting 34.86% complete.
+Sorting 40.67% complete.
+Sorting 46.48% complete.
+Sorting 52.29% complete.
+Sorting 58.10% complete.
+Sorting 63.91% complete.
+Sorting 69.73% complete.
+Sorting 75.54% complete.
+Sorting 81.35% complete.
+Sorting 87.16% complete.
+Sorting 92.97% complete.
+Sorting 98.78% complete.
+Loading database finished (elapsed time: 0.60 sec)
+Reading spectra...
+Ignoring 0 profile spectra.
+Ignoring 72 spectra having less than 10 peaks.
+Reading spectra finished (elapsed time: 5.61 sec)
+Using 8 threads.
+Search Parameters:
+	PrecursorMassTolerance: 15.0ppm
+	IsotopeError: -1,2
+	TargetDecoyAnalysis: true
+	FragmentationMethod: As written in the spectrum or CID if no info
+	Instrument: HighRes
+	Enzyme: Tryp
+	Protocol: Standard
+	NumTolerableTermini: 1
+	MinPeptideLength: 6
+	MaxPeptideLength: 40
+	NumMatchesPerSpec: 1
+Spectrum 0-23704 (total: 23705)
+pool-1-thread-6: Preprocessing spectra...
+Loading built-in param file: CID_HighRes_Tryp.param
+pool-1-thread-8: Preprocessing spectra...
+pool-1-thread-5: Preprocessing spectra...
+pool-1-thread-4: Preprocessing spectra...
+pool-1-thread-7: Preprocessing spectra...
+pool-1-thread-3: Preprocessing spectra...
+pool-1-thread-2: Preprocessing spectra...
+pool-1-thread-1: Preprocessing spectra...
+pool-1-thread-2: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-2: Database search...
+pool-1-thread-2: Database search progress... 0.0% complete
+pool-1-thread-2: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-2: Computing spectral E-values...
+pool-1-thread-4: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-4: Database search...
+pool-1-thread-4: Database search progress... 0.0% complete
+pool-1-thread-4: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-4: Computing spectral E-values...
+pool-1-thread-3: Preprocessing spectra finished (elapsed time: 36.00 sec)
+pool-1-thread-3: Database search...
+pool-1-thread-3: Database search progress... 0.0% complete
+pool-1-thread-3: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-3: Computing spectral E-values...
+pool-1-thread-6: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-6: Database search...
+pool-1-thread-6: Database search progress... 0.0% complete
+pool-1-thread-6: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-6: Computing spectral E-values...
+pool-1-thread-5: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-5: Database search...
+pool-1-thread-5: Database search progress... 0.0% complete
+pool-1-thread-5: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-5: Computing spectral E-values...
+pool-1-thread-1: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-1: Database search...
+pool-1-thread-1: Database search progress... 0.0% complete
+pool-1-thread-1: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-1: Computing spectral E-values...
+pool-1-thread-7: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-7: Database search...
+pool-1-thread-7: Database search progress... 0.0% complete
+pool-1-thread-7: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-7: Computing spectral E-values...
+pool-1-thread-8: Preprocessing spectra finished (elapsed time: 37.00 sec)
+pool-1-thread-8: Database search...
+pool-1-thread-8: Database search progress... 0.0% complete
+pool-1-thread-8: Database search finished (elapsed time: 0.00 sec)
+pool-1-thread-8: Computing spectral E-values...
+pool-1-thread-3: Computing spectral E-values... 33.7% complete
+pool-1-thread-2: Computing spectral E-values... 33.7% complete
+pool-1-thread-4: Computing spectral E-values... 33.7% complete
+pool-1-thread-1: Computing spectral E-values... 33.7% complete
+pool-1-thread-6: Computing spectral E-values... 33.7% complete
+pool-1-thread-5: Computing spectral E-values... 33.7% complete
+pool-1-thread-7: Computing spectral E-values... 33.7% complete
+pool-1-thread-8: Computing spectral E-values... 33.7% complete
+pool-1-thread-4: Computing spectral E-values... 67.5% complete
+pool-1-thread-2: Computing spectral E-values... 67.5% complete
+pool-1-thread-6: Computing spectral E-values... 67.5% complete
+pool-1-thread-3: Computing spectral E-values... 67.5% complete
+pool-1-thread-1: Computing spectral E-values... 67.5% complete
+pool-1-thread-7: Computing spectral E-values... 67.5% complete
+pool-1-thread-5: Computing spectral E-values... 67.5% complete
+pool-1-thread-8: Computing spectral E-values... 67.5% complete
+pool-1-thread-1: Computing spectral E-values finished (elapsed time: 20.00 sec)
+pool-1-thread-2: Computing spectral E-values finished (elapsed time: 22.00 sec)
+pool-1-thread-4: Computing spectral E-values finished (elapsed time: 22.00 sec)
+pool-1-thread-3: Computing spectral E-values finished (elapsed time: 22.00 sec)
+pool-1-thread-5: Computing spectral E-values finished (elapsed time: 22.00 sec)
+pool-1-thread-6: Computing spectral E-values finished (elapsed time: 22.00 sec)
+pool-1-thread-7: Computing spectral E-values finished (elapsed time: 23.00 sec)
+pool-1-thread-8: Computing spectral E-values finished (elapsed time: 23.00 sec)
+Computing q-values...
+Computing q-values finished (elapsed time: 0.02 sec)
+Writing results...
+Writing results finished (elapsed time: 1.47 sec)
+MS-GF+ complete (total elapsed time: 68.69 sec)
+MzIDToTsv v9108 (7/16/2014)
+Converting SML_newFDR.var2pep.mzid into SML_newFDR.var2pep.tsv
+MzIDToTsv complete (total elapsed time: 2.78 sec)
+22.0 	1.0 	0.0454545454545 	3.0147352e-05
+9.0 	1.0 	0.111111111111 	3.0147352e-05
+SML_newFDR.graph2pro.tsv.0.01.tsv spec 15 unique-peptide 3
+SML_newFDR.var2pep.tsv.0.01.tsv-only spec 18 unique-peptide 8
+SML_newFDR.graph2pro.tsv.0.01.tsv+SML_newFDR.var2pep.tsv.0.01.tsv-all spec 33 unique-peptide 11
+SML_newFDR.graph2pro.tsv.peptide.0.01.tsv spec 3 unique-peptide 3
+SML_newFDR.var2pep.tsv.peptide.0.01.tsv-only spec 8 unique-peptide 8
+SML_newFDR.graph2pro.tsv.peptide.0.01.tsv+SML_newFDR.var2pep.tsv.peptide.0.01.tsv-all spec 11 unique-peptide 11
+Unique peptides saved to SML_newFDR.final-peptide.txt
+Graph2Pro-Var pipeline completed!

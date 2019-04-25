@@ -536,6 +536,9 @@ void GraphPepTrav::GraphPep2Pro(void)
 	int	len_tmpseq;
 	int	tot_len = 0;
 
+	int	tmp_start_contig_index, tmp_end_contig_index;
+	int	tmp_start_contig_pos, tmp_end_contig_pos;
+
 	cout<<"\n>>>Now Traverse the graph..."<<endl;
 	//i = 610685;
 	printf("Check at the beginning of graph traversal\n");
@@ -548,6 +551,10 @@ void GraphPepTrav::GraphPep2Pro(void)
 	seq_proteins = (char **) smallapp::ckalloc(num_id_peptides * sizeof(char *));
 	mark_proteins = (char **) smallapp::ckalloc(num_id_peptides * sizeof(char *));
 	len_proteins = (int *) smallapp::ckalloc(num_id_peptides * sizeof(int));
+	start_contig_index = (int *) smallapp::ckalloc(num_id_peptides * sizeof(int));
+	end_contig_index = (int *) smallapp::ckalloc(num_id_peptides * sizeof(int));
+	start_contig_pos = (int *) smallapp::ckalloc(num_id_peptides * sizeof(int));
+	end_contig_pos = (int *) smallapp::ckalloc(num_id_peptides * sizeof(int));
 	num_proteins = 0;
 
 	tmpseq = (char *) smallapp::ckalloc(max_length * sizeof(char));
@@ -565,6 +572,16 @@ void GraphPepTrav::GraphPep2Pro(void)
 		id_peptide_pointer = &(id_peptides[i]);
 		if(id_peptide_pointer -> prev_id <= 0)	{
 			if(id_peptide_pointer -> len_prev_seq > 0 && ckcutsite(id_peptide_pointer -> prev_seq[id_peptides[i].len_prev_seq - 1]) == 1)	{ // cut site
+				if(len_tmpseq == 0)	{
+					tmp_start_contig_index = id_peptide_pointer -> beg_edge_index;
+					if(id_peptide_pointer -> beg_edge_offset < id_peptide_pointer -> beg_edge_offset)	{
+						cout << "Length of prev_seq error: pep " << i << "edge " << tmp_start_contig_index
+						 << "offset " << id_peptide_pointer -> beg_edge_offset << "len_prev_seq " <<
+						 id_peptide_pointer -> len_prev_seq << endl;
+						exit(-1);
+					}
+					tmp_start_contig_pos = id_peptide_pointer -> beg_edge_offset - 3 * id_peptide_pointer -> len_prev_seq;
+				}
 				len_tmpseq = appendpep(tmpseq, len_tmpseq, id_peptide_pointer -> prev_seq, id_peptide_pointer -> len_prev_seq);
 			}
 /*
@@ -580,7 +597,13 @@ if(num_proteins > num_id_peptides)	{
 			while(id_peptide_pointer -> label <= 1 && id_peptide_pointer -> next_id > 0)	{
 //printf("id_peptide_pointer %d next_id %d\n", id_peptide_pointer, id_peptide_pointer -> next_id);
 				l = len_tmpseq;
+				if(len_tmpseq == 0)	{
+					tmp_start_contig_index = id_peptide_pointer -> beg_edge_index;
+					tmp_start_contig_pos = id_peptide_pointer -> beg_edge_offset;
+				}
 				len_tmpseq = appendpep(tmpseq, len_tmpseq, id_peptide_pointer -> seq, id_peptide_pointer -> length);
+				tmp_end_contig_index = id_peptide_pointer -> end_edge_index;
+				tmp_end_contig_pos = id_peptide_pointer -> end_edge_offset;
 				markpeptide(markseq, l, len_tmpseq);
 				id_peptide_pointer -> label ++;
 				n = id_peptide_pointer -> next_id - 1;
@@ -596,14 +619,30 @@ printf("\n");
 }
 */
 					len_tmpseq = appendpep(tmpseq, len_tmpseq, id_peptide_pointer -> next_seq, id_peptide_pointer -> len_next_seq);
+					tmp_end_contig_index = id_peptide_pointer -> end_edge_index;
+					tmp_end_contig_pos = id_peptide_pointer -> end_edge_offset + id_peptide_pointer -> len_next_seq * 3;
 				}
 				id_peptide_pointer = &(id_peptides[n]);
 			}
 			l = len_tmpseq;
+			if(len_tmpseq == 0)	{
+				tmp_start_contig_index = id_peptide_pointer -> beg_edge_index;
+				tmp_start_contig_pos = id_peptide_pointer -> beg_edge_offset;
+			}
 			len_tmpseq = appendpep(tmpseq, len_tmpseq, id_peptide_pointer -> seq, id_peptide_pointer -> length);
+			tmp_end_contig_index = id_peptide_pointer -> end_edge_index;
+			tmp_end_contig_pos = id_peptide_pointer -> end_edge_offset;
 			markpeptide(markseq, l, len_tmpseq);
 			if(id_peptide_pointer -> len_next_seq > 0)	{
-					len_tmpseq = appendpep(tmpseq, len_tmpseq, id_peptide_pointer -> next_seq, id_peptide_pointer -> len_next_seq);
+				len_tmpseq = appendpep(tmpseq, len_tmpseq, id_peptide_pointer -> next_seq, id_peptide_pointer -> len_next_seq);
+				tmp_end_contig_index = id_peptide_pointer -> end_edge_index;
+				tmp_end_contig_pos = id_peptide_pointer -> end_edge_offset + id_peptide_pointer -> len_next_seq * 3;
+				if(tmp_end_contig_pos >= edge[tmp_end_contig_index].length)	{
+					cout << "Length of next_seq error: pep " << i << "edge " << tmp_end_contig_index
+					 << "offset " << id_peptide_pointer -> end_edge_offset << "len_next_seq " <<
+					 id_peptide_pointer -> len_next_seq << endl;
+					exit(-1);
+				}
 			}
 /*
 			if(n >= 0 && id_peptides[n].len_next_seq > 0)	{
@@ -619,6 +658,10 @@ printf("\n");
 				mark_proteins[num_proteins][j] = markseq[j];
 			}
 			tot_len += len_proteins[num_proteins];
+			start_contig_index[num_proteins] = tmp_start_contig_index;
+			end_contig_index[num_proteins] = tmp_end_contig_index;
+			start_contig_pos[num_proteins] = tmp_start_contig_pos;
+			end_contig_pos[num_proteins] = tmp_end_contig_pos;
 			num_proteins ++;
 			for(j = 0; j < len_tmpseq; j ++)	{
 				markseq[j] = 0;
@@ -935,7 +978,7 @@ printf("continue %d\n", num_peptides);
 			tot_lpl += len_proteins[i];
 			num_lp ++;
 		}
-		outputseq(i, fs, seq_proteins[i], mark_proteins[i], len_proteins[i]);
+		outputseq(i, fs, seq_proteins[i], mark_proteins[i], len_proteins[i], start_contig_index[i], start_contig_pos[i], end_contig_index[i], end_contig_pos[i]);
 	}
 	printf("# long proteins (>150 aa): %d, total length: %d\n", num_lp, tot_lpl);
 	fs.close();
@@ -944,12 +987,12 @@ printf("continue10 numpep %d\n", numpep);
 */
 }
 
-void GraphPepTrav::outputseq(int index, ofstream &fp, char *seq, char *mark, int length)
+void GraphPepTrav::outputseq(int index, ofstream &fp, char *seq, char *mark, int length, int start_contig_index, int start_contig_pos, int end_contig_index, int end_contig_pos)
 {
 	int	i, j, k, l, m, n;
 	char	str[1000];	
 
-	sprintf(str, ">Protein%d %d", index, length);
+	sprintf(str, ">Protein%d %d; Contigs: %d %d %d %d", index, length, start_contig_index, start_contig_pos, end_contig_index, end_contig_pos);
 	fp<<str<<endl;
 	for(i = 0; i < length; i ++)	{
 		if(mark[i] == 1)	{
