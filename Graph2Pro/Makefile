@@ -1,30 +1,11 @@
 # Makefile
-#
-#objects := $(patsubst %.cpp, %.o, $(wildcard *.cpp))
+
 objects0 :=  smallapp.o seq.o 
 objects1 :=  soap.o FastG.o seqgraph.o FastG_SPaDes.o
 objects2 :=  Graph2Pro.o
 objects3 :=  GraphPep2Pro.o
 
 all: DBGraph2Pro DBGraphPep2Pro
-
-CXX := g++
-
-CXXFLAGs :=
-
-BUILD_TYPE :=
-
-ifeq ($(BUILD_TYPE), debug)
-	CXXFLAGS += -g
-else
-	CXXFLAGS += -O2 -w
-endif
-
-ifeq ($(pg), 1)
-	CXXFLAGS += -pg
-else
-	CXXFLAGS +=
-endif
 
 INC := -I ./
 LIB := -lm
