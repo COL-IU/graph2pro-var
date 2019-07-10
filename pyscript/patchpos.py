@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #Nov 8 2018, Ye
+from __future__ import print_function
 import sys
 
 def revcomplement(seq):
@@ -42,7 +43,7 @@ for aline in peplines:
 	aline = aline.strip()
 	subs = aline.split("\t")
 	if subs[3] != 'FragGeneScan':
-		print >>out, aline
+		print(aline, file=out)
 	else:
 		pep, proid, pb, pe = subs[0], subs[1], int(subs[6]), int(subs[8])
 		plen = len(pep)
@@ -81,8 +82,8 @@ for aline in peplines:
 				#print "found match at try i", i
 				break
 		if not match:
-			print "Warning: peptide not found in " + cid
+			print("Warning: peptide not found in " + cid)
 		subs[6] = str(nb_final)
 		subs[8] = str(nb_final + (pe - pb))
-		print >> out, "\t".join(subs) 
+		print("\t".join(subs), file=out) 
 out.close()

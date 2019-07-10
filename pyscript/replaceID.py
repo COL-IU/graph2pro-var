@@ -1,5 +1,11 @@
+#!/usr/bin/env python
 from sys import argv
 from Bio import SeqIO
+
+if len(argv) < 2:
+        print('Usage: %s <input_fastafile>' % argv[0])
+        exit(0)
+
 fastafile = argv[1]
 
 

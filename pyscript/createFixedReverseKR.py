@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 from sys import argv
 
@@ -20,7 +21,7 @@ if len(sys.argv) < 2:
 
 filename = argv[1]
 write_filename = argv[1].replace('.fasta','.fixedKR.fasta')
-print write_filename
+print(write_filename)
 out = open(write_filename,'w')
 inf = open(argv[1], "r")
 des, seq = "", ""

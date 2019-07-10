@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
 from sys import argv
+
+if len(argv) < 3:
+	print('Usage: %s <input_file> <FDR value>' % argv[0])
+	exit(0)
+
 filename = argv[1]
 FDRLevel = argv[2]
 filename_FDR = argv[1]+".peptide."+ FDRLevel +".tsv"
@@ -34,5 +39,5 @@ with open(filename) as file:
 		if spectrumQvalue > float(FDRLevel) :
 			break
 fw.close()
-print forward,"\t",reverse,"\t",spectrumQvalue,"\t",evalue
+print(forward,"\t",reverse,"\t",spectrumQvalue,"\t",evalue)
 

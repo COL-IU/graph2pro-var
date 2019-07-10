@@ -4,7 +4,7 @@ import sys
 import re
 
 if len(sys.argv) < 6:
-	print ("Usage: " + sys.argv[0] + " <fgs-ms-ide-result> <fgs-fasta-file> <graph2pep-ms-ide-result> <graph2pep-fasta-file> <output-file>")
+	print(("Usage: " + sys.argv[0] + " <fgs-ms-ide-result> <fgs-fasta-file> <graph2pep-ms-ide-result> <graph2pep-fasta-file> <output-file>"))
 	sys.exit()
 fgsms, fgsfa, dbpepms, dbpepfa, outfile = sys.argv[1:6]
 msfiles = [dbpepms, fgsms]
@@ -70,7 +70,7 @@ for pep in pepHash[0]:
 			sys.exit("dbpep " + protein + " not found in graphinfo hash")
 		ginfo = graphinfo[protein]
 		edge = "\t".join(ginfo)
-       	 	fw.write(pep+"\t"+protein+"\t"+str(info[eidx])+"\t"+des[0]+"\t"+str(info[cidx])+"\t"+edge+"\n")
+		fw.write(pep+"\t"+protein+"\t"+str(info[eidx])+"\t"+des[0]+"\t"+str(info[cidx])+"\t"+edge+"\n")
 
 #get protein sequence (for inference of peptide location in the protein from FGS)
 protseq = {}
@@ -79,7 +79,7 @@ for pep in pepHash[1]:
 		protein = info[pidx]
 		protseq[protein] = ""
 f = open(fgsfa, "r")
-print "load", fgsfa
+print("load", fgsfa)
 for aline in f:
 	if aline[0] == '>':
 		name = aline[1:-1]
@@ -99,9 +99,9 @@ for pep in pepHash[1]:
 				start = p * 3 	
 				break
 		if start == -1:
-			print "peptide", pep
-			print "protein", protein
-			print "seq",seq
+			print("peptide", pep)
+			print("protein", protein)
+			print("seq",seq)
 			sys.exit("Warning: peptide not found in protein")
 		start -= 1 #index from 0
 		end = start + 3 * a
@@ -109,6 +109,6 @@ for pep in pepHash[1]:
 		edge = int(subs[7])
 		if subs[-1] == '+':
 			edge -= 1
-       		fw.write(pep+"\t"+protein+"\t"+str(info[eidx])+"\t"+des[1]+"\t"+str(info[cidx])+"\t"+str(edge)+"\t"+str(start)+"\t"+str(edge)+"\t"+str(end)+"\t0"+"\n")
+		fw.write(pep+"\t"+protein+"\t"+str(info[eidx])+"\t"+des[1]+"\t"+str(info[cidx])+"\t"+str(edge)+"\t"+str(start)+"\t"+str(edge)+"\t"+str(end)+"\t0"+"\n")
 
 fw.close()

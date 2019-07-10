@@ -9,7 +9,7 @@ def getUniqueHash(filenames, pephash0={}, spechash0={}):
 	scoreHash = dict()
 	for afile in filenames:
 		f = open(afile, "r")
-		f.next()
+		next(f)
 		for line in f:
 			lines = line.split('\t')
 			peptide = re.sub(r'[^a-zA-Z]', '', lines[9])
@@ -52,8 +52,8 @@ for idx in range(len(argv)):
 	elif (argv[idx] == '-b'):
 		brief = True
 if len(infiles) < 1:
-	print sys.argv[0] + " -i in-file (at least one) [-v spec-file] [-o ouptut]"
-	print "an output file name, and at least one tsv file need to be provided"
+	print(sys.argv[0] + " -i in-file (at least one) [-v spec-file] [-o ouptut]")
+	print("an output file name, and at least one tsv file need to be provided")
 	sys.exit()
 
 pephash, spechash = getUniqueHash(infiles)
@@ -64,22 +64,22 @@ numbers = []
 if brief:
 	numbers.extend([str(len(spechash)), str(len(pephash))])
 else:
-	print "+".join(infiles), "spec", len(spechash), "unique-peptide", len(pephash)
+	print("+".join(infiles), "spec", len(spechash), "unique-peptide", len(pephash))
 if len(varfiles) > 0:
 	pephash_only, spechash_only = getUniqueHash(varfiles, pephash, spechash)
 	if brief:
 		numbers.extend([str(len(spechash_only)), str(len(pephash_only))])
 	else:
-		print "+".join(varfiles) + "-only", "spec", len(spechash_only), "unique-peptide", len(pephash_only)
+		print("+".join(varfiles) + "-only", "spec", len(spechash_only), "unique-peptide", len(pephash_only))
 	allfiles = infiles[:]
 	allfiles.extend(varfiles)
 	if brief:
 		numbers.extend([str(len(spechash) + len(spechash_only)), str(len(pephash) + len(pephash_only))])
 	else:
-		print "+".join(allfiles) + "-all", "spec", len(spechash) + len(spechash_only), "unique-peptide", len(pephash) + len(pephash_only)
+		print("+".join(allfiles) + "-all", "spec", len(spechash) + len(spechash_only), "unique-peptide", len(pephash) + len(pephash_only))
 	if outputfile:
 		writeTofile(pephash_only, out,"var2pep")
 if outputfile:
 	out.close()
 if brief:
-	print " ".join(numbers)
+	print(" ".join(numbers))

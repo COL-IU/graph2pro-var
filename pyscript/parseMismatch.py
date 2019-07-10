@@ -55,7 +55,7 @@ with open(filename) as f:
 		if mlen > 0:
 			queryHash[lastquery] = mlen
 	f.close()
-print "queryHash done"
+print("queryHash done")
 
 of = open(outputfilename,'w')
 matchlen = 0
@@ -72,18 +72,18 @@ with open(fgsfilename) as f:
 		elif matchlen > 0:
 			seqseq = line
 			slen = len(seqseq)
-                	leftmost = slen
+			leftmost = slen
 			#only outputs those that potentially contain a tryptic peptide
-	                for p in range(slen):
+			for p in range(slen):
 				if (seqseq[p] == 'R') or (seqseq[p] == 'K'):
-       	                        	leftmost = p
-                                	break
-                	rightmost = 0
-                	for p in range(slen - 1, leftmost, -1):
-                        	if (seqseq[p] == 'R') or (seqseq[p] == 'K'):
-                                	rightmost = p
-                                	break
-                	if rightmost - leftmost < minlen:
+					leftmost = p
+					break
+			rightmost = 0
+			for p in range(slen - 1, leftmost, -1):
+				if (seqseq[p] == 'R') or (seqseq[p] == 'K'):
+					rightmost = p
+					break
+			if rightmost - leftmost < minlen:
 				continue
 			if seqseq[leftmost:rightmost] not in tryptic:
 				of.write('>'+name+'\n'+line+'\n')
