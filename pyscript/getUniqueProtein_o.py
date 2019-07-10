@@ -1,5 +1,10 @@
+#!/usr/bin/env python
 from sys import argv
 import re
+
+if len(argv) < 2:
+        print('Usage: %s <unique_hash>' % argv[0])
+        exit(0)
 
 def getUniqueHash(filename):
 	pepHash = dict()

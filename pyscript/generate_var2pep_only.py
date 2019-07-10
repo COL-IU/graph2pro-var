@@ -1,5 +1,10 @@
+#!/usr/bin/env python
 from sys import argv
 import re
+
+if len(argv) < 6:
+        print('Usage: %s <mismatched> <unconcordant> <graph2pro> graph2pro_variant> <variant_only>' % argv[0])
+        exit(0)
 
 mismatched = argv[1]
 unconcondant = argv[2]

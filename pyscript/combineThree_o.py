@@ -1,4 +1,9 @@
+#!/usr/bin/env python
 from sys import argv
+
+if len(argv) < 4:
+        print('Usage: %s <mismatched> <unconcordant> <graph2pro>' % argv[0])
+        exit(0)
 
 mismatched = argv[1]
 unconcondant = argv[2]
