@@ -166,5 +166,6 @@ void printusage(char *error)
 	cout<<"-m Max_Pep_per_Edge: default 100"<<endl;
 	cout<<"-u (SOAP when set; default off for SOAP2)"<<endl;
 	cout<<"-f (FastG when set; default off for SOAP2)"<<endl;
+	cout<<"-S (FastG output by MetaSPaDes when set; default off for SOAP2)"<<endl;
 	exit(-1);
 }
